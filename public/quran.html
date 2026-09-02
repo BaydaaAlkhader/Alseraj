@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>السراج - القرآن الكريم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="quran.css">
+</head>
+
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- الشريط العلوي Navigation Bar -->
+    <header class="navbar">
+      <div class="logo-area">
+        <div class="logo-icon"><i class="fa-solid fa-moon"></i></div>
+        <div class="logo-text">
+          <h1>السراج</h1>
+          <span>طريقك إلى الخير</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="dashboard.html" class="nav-link">الرئيسية</a>
+        <a href="quran.html" class="nav-link active">القرآن</a>
+        <a href="adhkar.html" class="nav-link">الأذكار</a>
+        <a href="lessons.html" class="nav-link">الدروس</a>
+       
+      </nav>
+
+      <div class="user-section">
+        <button class="icon-btn" id="logoutBtn" title="تسجيل الخروج">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+        <div class="avatar" id="userAvatar">-</div>
+        <span class="user-name" id="userNameDisplay">جاري التحميل...</span>
+      </div>
+    </header>
+
+    <!-- قسم العنوان والتبويبات العلوية (تم رفعها لتبدأ القوائم مع محتوى المصحف مباشرة) -->
+    <div class="quran-top-section">
+      <div class="quran-header">
+        <div class="quran-title">
+          <h2>📖 القرآن الكريم</h2>
+          <p>اقرأ، تعلم، وتدبر كلام الله</p>
+        </div>
+        <div class="search-box">
+         
+        </div>
+      </div>
+
+      <div class="quran-tabs">
+        <button class="tab-btn active" data-tab="surahs">السور</button>
+        <button class="tab-btn" data-tab="juzs">الأجزاء</button>
+        <button class="tab-btn" data-tab="favorites">المفضلة</button>
+        <button class="tab-btn" data-tab="reflections">تدبراتي</button>
+        <button class="tab-btn" id="tafseerBtn">تفسير</button>
+      </div>
+    </div>
+
+    <!-- جسم الصفحة الرئيسي (عمودان: المصحف والقائمة الجانبية) -->
+    <div class="app-layout">
+
+      <!-- العمود الأول: قارئ القرآن الكريم -->
+      <main class="main-content">
+        <div class="mushaf-card">
+          <div class="mushaf-head">
+            <h3 id="surahTitle">❖ سورة البقرة ❖</h3>
+            <span id="surahMeta">الآية 35 من 286</span>
+          </div>
+
+          <div class="mushaf-viewer">
+            <button class="page-nav-btn" id="nextPage">&lt;</button>
+
+            <div id="quranText" class="quran-text-container">
+              <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+              <p class="quran-text">جاري تحميل النص...</p>
+            </div>
+
+            <button class="page-nav-btn" id="prevPage">&gt;</button>
+          </div>
+
+          <div class="mushaf-footer">
+            <div class="footer-actions">
+              <button class="action-btn" id="shareBtn">🔗 مشاركة</button>
+            </div>
+
+            <div class="page-stepper">
+              <button class="step-btn" id="btnDec">&lt;</button>
+              <span id="pageIndicator">1 / 604</span>
+              <button class="step-btn" id="btnInc">&gt;</button>
+            </div>
+
+            <div class="footer-actions">
+              <button class="action-btn" id="listenBtn">🎧 استماع</button>
+              <button class="action-btn" id="favToggleBtn">
+                <i class="fa-regular fa-heart" id="favIcon"></i>
+                <span id="favText">مفضلة</span>
+              </button>
+              <button class="action-btn" id="tadabburBtn">📝 تدبري</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- العمود الثاني: قائمة السور/الأجزاء/التفسير (على نفس خط المصحف) -->
+      <aside class="sidebar-right">
+        <div class="card" id="surahListSection">
+          <h3 class="card-title" id="listTitle">جميع السور</h3>
+          <ul class="surah-list" id="surahList"></ul>
+        </div>
+
+        <div id="tafseerSidebarSection" class="card sidebar-section" style="display: none;">
+          <div class="tafseer-header">
+            <h3 class="card-title">التفسير وعلوم القرآن</h3>
+            <select id="tafseerSelect" class="tafseer-select">
+              <option value="16">التفسير الميسر</option>
+              <option value="14">تفسير ابن كثير</option>
+              <option value="91">تفسير السعدي</option>
+              <option value="92">تفسير الجلالين</option>
+              <option value="94">التفسير الوسيط (طنطاوي)</option>
+              <option value="93">تفسير القرطبي</option>
+            </select>
+          </div>
+
+          <div class="tafseer-body">
+            <h4 id="tafseerAyahTitle">سورة البقرة - آية 1</h4>
+            <p id="tafseerText">اختر آية لعرض التفسير...</p>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- الآية القرآنية أسفل البوكسين بالوسط وبخط رفيع وروحاني -->
+    <div class="bottom-quran-quote">
+      إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ <span>﴿ الإسراء: 9 ﴾</span>
+    </div>
+
+  </div>
+
+  <!-- Modal المشاركة -->
+  <div id="shareModal" class="share-modal-overlay">
+    <div class="share-modal-card">
+      <button class="close-share-btn" onclick="closeShareModal()">&times;</button>
+      <h3>مشاركة الآية</h3>
+      
+      <div class="verse-preview-box">
+        <p id="shareVerseText">﴿ ﴾</p>
+        <span id="shareVerseInfo"></span>
+      </div>
+
+      <div class="share-actions">
+        <button onclick="copyVerseText()" class="share-btn">📋 نسخ النص</button>
+        <button onclick="shareNative()" class="share-btn primary">🔗 مشاركة عبر الجهاز</button>
+        <button onclick="generateVerseImage()" class="share-btn image-btn">🖼️ إنشاء صورة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal التدبر -->
+  <div id="reflectionModal" class="share-modal-overlay">
+    <div class="share-modal-card">
+      <button class="close-share-btn" onclick="closeReflectionModal()">&times;</button>
+      <h3>📝 تدبري في هذه الآية</h3>
+      
+      <div class="verse-preview-box">
+        <p id="refVerseText">﴿ ﴾</p>
+        <span id="refVerseInfo"></span>
+      </div>
+
+      <p style="text-align: right; font-size: 0.9rem; color: #555; margin-bottom: 6px;">ماذا أثارت هذه الآية فيك؟</p>
+      <textarea id="reflectionInput" rows="4" placeholder="اكتب تدبرك أو خاطرتك هنا..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-family: inherit; resize: vertical; box-sizing: border-box;"></textarea>
+
+      <div class="share-actions" style="margin-top: 15px;">
+        <button onclick="saveReflection()" class="share-btn primary">💾 حفظ التدبر</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal معاينة المفضلة والتدبر -->
+  <div id="previewModal" class="share-modal-overlay">
+    <div class="share-modal-card">
+      <button class="close-share-btn" onclick="closePreviewModal()">&times;</button>
+      
+      <h3 id="previewTitle" style="color: var(--primary-green); margin-bottom: 10px;">معاينة الآية</h3>
+      
+      <div class="verse-preview-box">
+        <p id="previewVerseText" class="quran-text" style="font-size: 1.4rem !important; line-height: 2 !important;"></p>
+        <span id="previewVerseInfo"></span>
+      </div>
+
+      <div id="previewTadabburBox" style="display: none; background: #fff; padding: 10px; border-radius: 8px; border-right: 3px solid var(--accent-gold); text-align: right; margin-bottom: 15px; font-size: 0.9rem;">
+        <strong>تأملي: </strong> <span id="previewTadabburText"></span>
+      </div>
+
+      <div class="share-actions">
+        <button id="btnGoToAyah" class="share-btn primary">الانتقال لموقع الآية في المصحف</button>
+        <button id="btnDeletePreviewItem" class="share-btn delete-btn">🗑️ إزالة من القائمة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- مشغل الصوت العائم -->
+  <div id="audioPlayerContainer" class="audio-player-bar" style="display: none;">
+    <div class="player-info-sec">
+      <span id="playerTitle" class="player-title">سورة البقرة - الآية 1</span>
+      <div style="display: flex; gap: 8px;">
+        <select id="reciterSelect" class="reciter-select">
+          <option value="ar.alafasy">مشاري العفاسي</option>
+          <option value="ar.abdulbasitmurattal">عبد الباسط عبد الصمد</option>
+          <option value="ar.husary">محمود خليل الحصري</option>
+          <option value="ar.minshawi">محمد صديق المنشاوي</option>
+          <option value="ar.saoodshuraym">سعود الشريم</option>
+        </select>
+        
+        <select id="speedSelect" class="reciter-select" title="سرعة القراءة">
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="player-controls-sec">
+      <button id="prevAyahBtn" title="الآية السابقة"><i class="fa-solid fa-forward-step"></i></button>
+      <button id="playPauseBtn" class="btn-play" title="تشغيل / إيقاف">
+        <i id="playIcon" class="fa-solid fa-play"></i>
+      </button>
+      <button id="nextAyahBtn" title="الآية التالية"><i class="fa-solid fa-backward-step"></i></button>
+    </div>
+
+    <div class="player-progress-sec">
+      <span id="currentTime">0:00</span>
+      <input type="range" id="progressBar" value="0" min="0" max="100">
+      <span id="durationTime">0:00</span>
+    </div>
+
+    <button id="closePlayerBtn" class="close-player-btn" title="إغلاق">&times;</button>
+  </div>
+
+  <script src="quran.js"></script>
+</body>
+
+</html>

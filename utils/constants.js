@@ -1,0 +1,5 @@
+module.exports = {
+  TOTAL_QURAN_PAGES: 604,
+  TOTAL_APP_LESSONS: 160,
+  OTP_EXPIRY_MINUTES: 10,
+};

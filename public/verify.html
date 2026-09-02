@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>السراج - تأكيد البريد الإلكتروني</title>
+  <link rel="stylesheet" href="verify.css">
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="mosque-icon">✉️</div>
+      <h2>تأكيد الحساب</h2>
+      <p class="subtitle">أدخل رمز التفعيل المكون من 6 أرقام المرسل إلى بريدك</p>
+    </div>
+
+    <form id="verifyForm">
+      <div class="input-group">
+        <label>رمز التفعيل (OTP)</label>
+        <input type="text" id="otp" placeholder="أدخل الرمز هنا" maxlength="6" required>
+      </div>
+
+      <div id="errorMessage" class="error-msg"></div>
+      <div id="successMessage" class="success-msg"></div>
+
+      <button type="submit" class="btn-submit">تأكيد الحساب</button>
+    </form>
+  </div>
+
+  <script src="verify.js"></script>
+</body>
+</html>

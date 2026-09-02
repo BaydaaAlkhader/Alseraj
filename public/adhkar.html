@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السراج - الأذكار</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="adhkar.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- الشريط العلوي Navigation Bar -->
+        <header class="navbar">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fa-solid fa-moon"></i></div>
+                <div class="logo-text">
+                    <h1>السراج</h1>
+                    <span>طريقك إلى الخير</span>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="dashboard.html" class="nav-link">الرئيسية</a>
+                <a href="quran.html" class="nav-link">القرآن</a>
+                <a href="adhkar.html" class="nav-link active">الأذكار</a>
+                <a href="lessons.html" class="nav-link">الدروس</a>
+               
+            </nav>
+
+            <div class="user-section">
+                <button class="icon-btn" id="logoutBtn" title="تسجيل الخروج">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+              
+                <div class="avatar" id="userAvatar">B</div>
+                <span class="user-name" id="userNameDisplay">Baydaa Alkhader</span>
+            </div>
+        </header>
+
+        <!-- إشعار ذكي تلقائي يظهر حسب وقت اليوم -->
+        <div class="smart-time-banner hidden" id="timeNoticeBanner">
+            <div class="time-banner-content">
+                <i class="fa-solid fa-bell-ring time-icon"></i>
+                <span id="timeNoticeText">تنبيه ذكي: حان وقت الأذكار</span>
+            </div>
+            <button class="btn-time-action" id="timeNoticeBtn" onclick="openSuggestedCategory()">عرض الأذكار</button>
+        </div>
+
+        <!-- الشبكة الرئيسية للأذكار -->
+        <main class="adhkar-grid">
+
+            <!-- 1. القائمة اليمين: تصنيف الأذكار -->
+            <aside class="sidebar-card">
+                <h3 class="sidebar-title">تصنيف الأذكار</h3>
+                <ul class="categories-menu">
+                    <li><a href="#" class="cat-link active" onclick="switchCategory('morning', this)"><i
+                                class="fa-solid fa-cloud-sun icon-orange"></i> أذكار الصباح</a></li>
+                    <li><a href="#" class="cat-link" onclick="switchCategory('evening', this)"><i
+                                class="fa-solid fa-moon icon-blue"></i> أذكار المساء</a></li>
+                    <li><a href="#" class="cat-link" onclick="switchCategory('prayer', this)"><i
+                                class="fa-solid fa-mosque icon-green"></i> أذكار بعد الصلاة</a></li>
+                    <li><a href="#" class="cat-link" onclick="switchCategory('sleep', this)"><i
+                                class="fa-solid fa-bed icon-purple"></i> أذكار النوم</a></li>
+                    <li><a href="#" class="cat-link" onclick="switchCategory('daily', this)"><i
+                                class="fa-solid fa-sun icon-gold"></i> الأذكار اليومية</a></li>
+                    <li><a href="#" class="cat-link" onclick="switchCategory('favorites', this)"><i
+                                class="fa-solid fa-star icon-gold"></i> المفضلة</a></li>
+                </ul>
+            </aside>
+
+            <!-- 2. منطقة الوسط: الذكر الحالي + العداد التفاعلي -->
+            <section class="workspace-area">
+
+                <!-- الهيدر والبحث -->
+                <div class="workspace-header">
+                    <div>
+                        <h2 id="categoryTitle">أذكار الصباح</h2>
+                        <p id="categorySubtitle">حصّن نفسك وابدأ يومك بذكر الله</p>
+                    </div>
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" placeholder="ابحث عن ذكر..." id="searchInput"
+                            oninput="handleSearch(this.value)">
+                    </div>
+                </div>
+
+                <!-- بطاقة التركيز والعداد الكبير -->
+                <div class="dhikr-focus-card">
+                    <div class="card-top-actions">
+                        <button class="action-btn" id="favBtn" onclick="toggleFavorite()">
+                            <i class="fa-regular fa-star" id="favIcon"></i> <span id="favText">حفظ في المفضلة</span>
+                        </button>
+
+                        <div class="share-dropdown">
+                            <button class="action-btn" onclick="toggleShareMenu()">
+                                <i class="fa-solid fa-share-nodes"></i> مشاركة
+                            </button>
+                            <div class="share-menu hidden" id="shareMenu">
+                                <button onclick="copyDhikrText()"><i class="fa-regular fa-copy"></i> نسخ النص</button>
+                                <button onclick="shareDhikr()"><i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    مشاركة عبر...</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- نص الذكر + الفضل -->
+                    <div class="dhikr-text-box">
+                        <div class="dhikr-virtue" id="dhikrVirtue">جاري التحميل...</div>
+                        <h3 class="dhikr-main-text" id="dhikrMainText">جاري التحميل...</h3>
+                        <p class="dhikr-source" id="dhikrSource"></p>
+                    </div>
+
+                    <!-- منطقة العداد التفاعلية -->
+                    <div class="counter-interactive-zone" id="counterZone" onclick="incrementCounter()">
+                        <div class="counter-numbers">
+                            <span class="count-current" id="currentCountDisplay">0</span>
+                            <span class="count-divider">/</span>
+                            <span class="count-target" id="targetCountDisplay">1</span>
+                        </div>
+                        <button class="tap-hint-btn">
+                            <i class="fa-solid fa-hand-pointer"></i> اضغط للذكر
+                        </button>
+                    </div>
+
+                    <!-- أزرار التحكم بالترتيب الجديد (الذكر التالي أولاً ثم أدوات الضبط) -->
+                    <div class="counter-footer-tools" style="flex-direction: column; align-items: center; gap: 12px;">
+                        <button class="btn btn-next-dhikr" onclick="goToNextDhikr()" style="width: 100%; justify-content: center; padding: 10px; font-size: 14px;">
+                            الذكر التالي <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        
+                        <div style="display: flex; gap: 12px; justify-content: center;">
+                            <button class="tool-icon-btn" onclick="decrementCounter()" title="إنقاص -1">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <button class="tool-icon-btn" onclick="resetCounter()" title="إعادة العداد">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- شريط الإتمام عند إنهاء كل أذكار القسم فقط -->
+                    <div class="completion-banner hidden" id="completionBanner">
+                        <div class="completion-text">
+                            <i class="fa-solid fa-sparkles"></i> <span id="completionMsg">تقبل الله طاعتك! أتممت هذا القسم بنجاح.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قائمة الأذكار التفقدية -->
+                <div class="dhikr-checklist-section">
+                    <h4 class="checklist-title">أذكار القائمة الحالية</h4>
+                    <div class="checklist-container" id="checklistContainer">
+                        <!-- يتم التوليد بالكامل من JS -->
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- 3. القائمة اليسار: إحصائيات ديناميكية -->
+            <aside class="sidebar-card">
+                <h3 class="sidebar-title">إحصائيات اليوم</h3>
+
+                <div class="stats-card-body">
+                    <div class="radial-progress-wrapper">
+                        <div class="radial-progress" id="radialProgress"
+                            style="background: conic-gradient(var(--primary-green) 0deg, var(--border-color) 0deg);">
+                            <div class="radial-inner">
+                                <span id="progressPercent">0%</span>
+                            </div>
+                        </div>
+                        <p class="progress-subtext" id="progressSubtext">إجمالي تقدم الأذكار اليوم</p>
+                    </div>
+
+                    <div class="mini-stats-grid">
+                        <div class="mini-stat-box">
+                            <span class="num" id="totalCountToday">0</span>
+                            <span class="lbl">إجمالي التسبيحات اليوم</span>
+                        </div>
+                        <div class="mini-stat-box">
+                            <span class="num" id="completedDhikrCount">0</span>
+                            <span class="lbl">أذكار مكتملة اليوم</span>
+                        </div>
+                    </div>
+
+                    <div class="quick-links">
+                        <h4>وصول سريع</h4>
+                        <a href="#" class="quick-link-item"
+                            onclick="switchCategory('favorites', document.querySelector('.cat-link[onclick*=\'favorites\']'))">
+                            <i class="fa-solid fa-star icon-gold"></i> الأذكار المفضلة (<span id="favCount">0</span>)
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+        </main>
+
+    </div>
+
+    <script src="adhkar.js"></script>
+</body>
+
+</html>

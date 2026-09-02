@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>السراج - طريقك إلى الخير</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="Alseraj.css">
+</head>
+<body>
+
+  <div class="dashboard-container">
+    
+    <!-- الشريط العلوي Navigation Bar -->
+    <header class="navbar">
+      <div class="logo-area">
+        <div class="logo-icon"><i class="fa-solid fa-moon"></i></div>
+        <div class="logo-text">
+          <h1>السراج</h1>
+          <span>طريقك إلى الخير</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="dashboard.html" class="nav-link active">الرئيسية</a>
+        <a href="quran.html" class="nav-link">القرآن</a>
+        <a href="adhkar.html" class="nav-link">الأذكار</a>
+        <a href="lessons.html" class="nav-link">الدروس</a>
+      </nav>
+
+      <div class="user-section">
+        <button class="icon-btn" id="logoutBtn" title="تسجيل الخروج">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      
+        <div class="avatar" id="userAvatar">-</div>
+        <span class="user-name" id="userNameDisplay">جاري التحميل...</span>
+      </div>
+    </header>
+
+    <!-- إشعار التذكير بالأذكار في الصفحة الرئيسية -->
+    <div class="smart-time-banner hidden" id="dashTimeBanner" style="background: linear-gradient(90deg, #1B3B2B 0%, #2C523A 100%); color: white; border-radius: 14px; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600;">
+        <i class="fa-solid fa-bell-ring" style="color: #C59235;"></i>
+        <span id="dashTimeText">حان وقت الأذكار</span>
+      </div>
+      <button onclick="window.location.href='adhkar.html'" style="background: #C59235; color: white; border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;">عرض الأذكار</button>
+    </div>
+
+    <!-- البانر الترحيبي Hero Banner -->
+    <section class="hero-banner">
+      <div class="hero-content">
+        <h2>خطوة اليوم قد تكون بداية أثر دائم.</h2>
+        <p>اقرأ، تعلّم، اذكر الله، واجعل لك أثراً كل يوم.</p>
+        <div class="hero-buttons">
+          <!-- <button class="btn btn-primary">
+            <i class="fa-solid fa-chart-line"></i> متابعة الإنجاز
+          </button>
+          <button class="btn btn-secondary">
+            <i class="fa-solid fa-seedling"></i> ابدأ رحلتك
+          </button> -->
+        </div>
+      </div>
+
+      <div class="hero-left-graphic">
+        <i class="fa-solid fa-book-open"></i>
+      </div>
+
+      <i class="fa-solid fa-mosque hero-illustration"></i>
+    </section>
+
+    <!-- قسم تقدمك اليوم -->
+    <section>
+      <h2 class="section-title">تقدمك اليوم</h2>
+      <div class="progress-grid">
+        
+        <!-- القرآن -->
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-info">
+              <span>القرآن</span>
+              <h3 id="quranText">0 صفحة</h3>
+            </div>
+            <div class="stat-icon green">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-fill green" id="quranBar" style="width: 0%;"></div>
+          </div>
+          <div class="stat-footer" id="quranPercent">0%</div>
+        </div>
+
+        <!-- الأذكار -->
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-info">
+              <span>الأذكار</span>
+              <h3 id="azkarText">0%</h3>
+            </div>
+            <div class="stat-icon gold">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-fill gold" id="azkarBar" style="width: 0%;"></div>
+          </div>
+          <div class="stat-footer" id="azkarPercent">0% إنجاز الأذكار</div>
+        </div>
+
+        <!-- الدروس -->
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="stat-info">
+              <span>الدروس</span>
+              <h3 id="lessonsText">0 درس</h3>
+            </div>
+            <div class="stat-icon purple">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-fill purple" id="lessonsBar" style="width: 0%;"></div>
+          </div>
+          <div class="stat-footer" id="lessonsPercent">0%</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- تابع من حيث توقفت -->
+    <section>
+      <h2 class="section-title">تابع من حيث توقفت</h2>
+      <div class="continue-wrapper">
+        <button class="btn btn-primary" id="continueReadingBtn">
+          متابعة القراءة <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="continue-card">
+          <div class="continue-details">
+            <h4 id="lastSurahName">لم تبدأ بعد</h4>
+            <p id="lastPageInfo">ابدأ قراءة القُرآن الآن</p>
+            <div class="progress-bar-bg">
+              <div class="progress-fill green" id="quranReadBar" style="width: 0%;"></div>
+            </div>
+          </div>
+          <div class="continue-thumb">
+            <i class="fa-solid fa-book-quran"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- استكشف -->
+    <section>
+      <h2 class="section-title">استكشف</h2>
+      <div class="explore-grid">
+        
+        <div class="explore-card" onclick="window.location.href='quran.html'" style="cursor: pointer;">
+          <i class="fa-solid fa-chevron-left explore-arrow"></i>
+          <div class="explore-info">
+            <h4>القرآن</h4>
+            <p>اقرأ وتدبر وتابع تقدمك</p>
+          </div>
+          <div class="stat-icon green"><i class="fa-solid fa-book-open"></i></div>
+        </div>
+        <div class="explore-card" onclick="window.location.href='adhkar.html'" style="cursor: pointer;">
+          <i class="fa-solid fa-chevron-left explore-arrow"></i>
+          <div class="explore-info">
+            <h4>الأذكار</h4>
+            <p>سبحة وأذكار يومية</p>
+          </div>
+          <div class="stat-icon gold"><i class="fa-solid fa-hands-praying"></i></div>
+        </div>
+        <div class="explore-card" onclick="window.location.href='lessons.html'" style="cursor: pointer;" >
+          <i class="fa-solid fa-chevron-left explore-arrow"></i>
+          <div class="explore-info"> 
+            <h4>الدروس</h4>
+            <p>دروس ومحاضرات نافعة</p>
+          </div>
+          <div class="stat-icon purple"><i class="fa-solid fa-graduation-cap"></i></div>
+        </div>
+
+        <!-- <div class="explore-card">
+          <i class="fa-solid fa-chevron-left explore-arrow"></i>
+          <div class="explore-info">
+            <h4>التفسير</h4>
+            <p>تفسير السور والأيات</p>
+          </div>
+          <div class="stat-icon blue">
+            <i class="fa-solid fa-bookmark"></i>
+          </div>
+        </div> -->
+
+      </div>
+    </section>
+
+    <!-- تقويم الإنجاز -->
+    <section class="activity-calendar-section">
+      <div class="calendar-header">
+        <div class="header-right">
+          <h2 class="section-title">أيام إنجازك</h2>
+          <span class="subtitle">سجل النشاط اليومي</span>
+        </div>
+        
+        <div class="heatmap-legend">
+          <span>أقل</span>
+          <div class="legend-box lvl-0"></div>
+          <div class="legend-box lvl-1"></div>
+          <div class="legend-box lvl-2"></div>
+          <div class="legend-box lvl-3"></div>
+          <div class="legend-box lvl-4"></div>
+          <span>أكثر</span>
+        </div>
+      </div>
+
+      <div class="months-scroll-container" id="monthsContainer"></div>
+    </section>
+
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>السراج - تسجيل الدخول</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="mosque-icon">🕌</div>
+      <h2>تسجيل الدخول</h2>
+      <p class="subtitle">مرحباً بعودتك! يرجى إدخال بياناتك للدخول</p>
+    </div>
+
+    <!-- نموذج تسجيل الدخول -->
+    <form id="loginForm">
+      <div class="input-group">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+      </div>
+
+      <div class="input-group">
+        <label>كلمة المرور</label>
+        <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+      </div>
+
+      <!-- رسائل الخطأ والنجاح -->
+      <div id="errorMessage" class="error-msg"></div>
+      <div id="successMessage" class="success-msg"></div>
+
+      <button type="submit" class="btn-submit">تسجيل الدخول</button>
+    </form>
+
+    <p class="switch-auth">
+      ليس لديك حساب؟ <a href="register.html">إنشاء حساب جديد</a>
+    </p>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>

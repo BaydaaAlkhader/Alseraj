@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Tajawal', sans-serif;
+}
+
+body {
+  background-color: #eef2ef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.mosque-icon {
+  font-size: 36px;
+  margin-bottom: 6px;
+}
+
+.auth-header h2 {
+  color: #1b4d3e;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: #777;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  text-align: right;
+  margin-bottom: 14px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 13px;
+  background-color: #f9f9f9;
+  outline: none;
+  transition: 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #1b4d3e;
+  background-color: #fff;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 13px;
+  background-color: #1b4d3e;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #143b2f;
+}
+
+.switch-auth {
+  font-size: 12px;
+  color: #666;
+  margin-top: 18px;
+}
+
+.switch-auth a {
+  color: #1b4d3e;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.error-msg {
+  color: #d9534f;
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.success-msg {
+  color: #28a745;
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-align: right;
+}

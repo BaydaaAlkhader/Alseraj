@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>السراج - الدروس والمسارات التعليمية</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="Alseraj.css">
+  <link rel="stylesheet" href="lessons.css">
+</head>
+
+<body>
+
+  <div class="dashboard-container lessons-page-container">
+
+    <!-- الشريط العلوي Navigation Bar -->
+    <nav class="navbar">
+      <!-- الجهة اليمنى: اللوجو وعنوان التطبيق -->
+      <div class="logo-area">
+        <div class="logo-icon">
+          <div class="logo-icon"><i class="fa-solid fa-moon"></i></div>
+        </div>
+        <div class="logo-text">
+          <h1>السراج</h1>
+          <span>طريقك إلى الخير</span>
+        </div>
+      </div>
+
+      <!-- المنتصف: روابط التنقل السريع -->
+      <div class="nav-links">
+        <a href="dashboard.html" class="nav-link">الرئيسية</a>
+        <a href="quran.html" class="nav-link">القرآن</a>
+        <a href="adhkar.html" class="nav-link">الأذكار</a>
+        <a href="lessons.html" class="nav-link active">الدروس</a>
+      </div>
+
+      <!-- الجهة اليسرى: بيانات المستخدم المسترجعة ديناميكياً وزر الخروج -->
+      <div class="user-section">
+         <!-- زر تسجيل الخروج -->
+        <button id="logoutBtn" class="icon-btn" href="login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        
+        <!-- دائرة الحرف الأول من الاسم -->
+        <div id="userAvatar" class="avatar">م</div>
+
+        <!-- اسم المستخدم الكامل -->
+        <span id="userNameDisplay" class="user-name">مستخدم</span>
+
+       
+      </div>
+    </nav>
+
+    <!-- 1. عرض كتالوج المسارات الرئيسي (Default Catalog View) -->
+    <div id="catalogView">
+      <div class="lessons-layout">
+
+        <!-- العمود الأيمن (الهامش): إحصائيات والتصنيفات -->
+        <aside class="lessons-sidebar-left">
+          <div class="sidebar-card stats-card">
+            <h3 class="card-title">إحصائيات التعلم</h3>
+            <div class="circular-progress-container">
+              <div class="circular-progress" id="mainProgressCircle">
+                <div class="inner-circle">
+                  <span class="percentage" id="overallPercentText">0%</span>
+                  <span class="progress-label">إجمالي التقدم</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-mini-grid">
+              <div class="stat-badge">
+                <i class="fa-solid fa-award icon-gold"></i>
+                <span class="stat-num" id="completedPathsCount">0</span>
+                <span class="stat-lbl">مسارات مكتملة</span>
+              </div>
+              <div class="stat-badge">
+                <i class="fa-regular fa-circle-check icon-green"></i>
+                <span class="stat-num" id="completedLessonsCount">0</span>
+                <span class="stat-lbl">درس مكتمل</span>
+              </div>
+              <div class="stat-badge">
+                <i class="fa-solid fa-book-open icon-purple"></i>
+                <span class="stat-num" id="remainingLessonsCount">0</span>
+                <span class="stat-lbl">درس متاح</span>
+              </div>
+            </div>
+
+            <button class="btn btn-secondary full-width-btn" id="viewDetailedReportBtn">
+              <i class="fa-solid fa-chart-line"></i> تقرير الإنجاز
+            </button>
+          </div>
+
+          <!-- كارت تصنيفات الدروس -->
+          <div class="sidebar-card categories-card">
+            <h3 class="card-title">التصنيفات العلمية</h3>
+            <ul class="categories-list" id="categoriesContainer"></ul>
+          </div>
+
+          <div class="quote-card">
+            <i class="fa-solid fa-seedling quote-icon"></i>
+            <p class="quote-text">إِنَّمَا يَخْشَى اللَّهَ مِنْ عِبَادِهِ الْعُلَمَاءُ</p>
+            <span class="quote-source">سورة فاطر: 28</span>
+          </div>
+        </aside>
+
+        <!-- المنطقة الوسطى: السلايدر والمحتوى -->
+        <main class="lessons-main-content">
+          <div class="lessons-header-bar">
+            <div class="lessons-title-area">
+              <h2><i class="fa-solid fa-book-bookmark"></i> المسارات التعليمية المنهجية</h2>
+              <p>تعلم علوم دينك وتزكية نفسك خطوة بخطوة عبر مسارات موثوقة</p>
+            </div>
+
+            <section class="featured-paths-section">
+              <div class="section-header-flex">
+                <h3><i class="fa-solid fa-compass header-star"></i> المسارات المتاحة</h3>
+                <div class="slider-arrows">
+                  <button class="arrow-btn" id="slideRightBtn" title="السابق"><i
+                      class="fa-solid fa-chevron-right"></i></button>
+                  <button class="arrow-btn" id="slideLeftBtn" title="التالي"><i
+                      class="fa-solid fa-chevron-left"></i></button>
+                </div>
+              </div>
+
+              <div class="cards-carousel" id="featuredCoursesContainer"></div>
+              <div class="slider-dots-wrap">
+                <div class="slider-dots" id="sliderDots"></div>
+              </div>
+            </section>
+
+            <section class="continue-learning-section">
+              <h3><i class="fa-solid fa-clock-rotate-left"></i> متابعة التعلم</h3>
+              <div class="continue-list" id="continueLearningContainer"></div>
+            </section>
+        </main>
+
+        <!-- العمود الأيسر: قائمة الدعاة -->
+        <aside class="lessons-sidebar-right">
+          <div class="sidebar-card scholars-card">
+            <h3 class="card-title">تصفح حسب الداعية</h3>
+            <ul class="scholars-list" id="scholarsContainer"></ul>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+    <!-- 2. عرض تفاصيل المسار المختار (Course Detail View) -->
+    <div id="courseDetailView" style="display: none;">
+      <div class="detail-top-nav">
+        <button class="back-to-lessons-btn" onclick="backToCatalog()">
+          <i class="fa-solid fa-chevron-right"></i> العودة إلى الدروس
+        </button>
+      </div>
+
+      <div class="course-detail-banner">
+        <div class="banner-top-row">
+          <div class="banner-text-side">
+            <span class="category-pill-lg" id="detailCategoryBadge">-</span>
+            <h2 class="course-detail-title" id="detailCourseTitle">-</h2>
+            <p class="course-detail-author">الداعية: <span id="detailScholarName">-</span></p>
+            <p class="course-detail-desc" id="detailCourseDesc">-</p>
+          </div>
+          <div class="banner-img-side">
+            <img id="detailCourseImg" src="" alt="غلاف المسار">
+          </div>
+        </div>
+
+        <div class="banner-bottom-row">
+          <div class="detail-progress-box">
+            <div class="progress-title-row">
+              <span>تقدمك في المسار</span>
+              <span class="percent-val" id="detailPercentText">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-fill green" id="detailProgressBar" style="width: 0%;"></div>
+            </div>
+            <span class="progress-subtext" id="detailLessonsProgressText">0 من 0 دروس مكتملة</span>
+          </div>
+
+          <div class="detail-action-box">
+            <button class="btn-start-course" id="startCourseMainBtn" onclick="startCurrentCourse()">
+              <i class="fa-solid fa-play"></i> <span id="startBtnLabel">بدء الدراسة الآن</span>
+            </button>
+            <span class="current-lesson-hint" id="currentLessonHint">الدرس الحالي: الدرس 1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-lessons-section">
+        <h3 class="section-title-sm"><i class="fa-solid fa-list-check"></i> دروس المسار</h3>
+        <div class="lessons-list-container" id="courseLessonsList"></div>
+      </div>
+    </div>
+
+    <!-- 3. واجهة المشاهدة والدراسة الشاملة (Lesson Player View - المطابقة للصورة) -->
+    <div id="lessonPlayerView" style="display: none;">
+
+      <nav class="breadcrumbs">
+        <span class="crumb-btn" onclick="backToCatalog()">الدروس</span>
+        <i class="fa-solid fa-chevron-left"></i>
+        <span id="playerBreadcrumbCat" class="crumb-btn" onclick="filterCategoryFromPlayer()">التصنيف</span>
+        <i class="fa-solid fa-chevron-left"></i>
+        <span id="playerBreadcrumbCourse" class="crumb-btn" onclick="openCourseDetailFromPlayer()">اسم المسار</span>
+        <i class="fa-solid fa-chevron-left"></i>
+        <span id="playerBreadcrumbLesson" class="crumb-active">الدرس 1</span>
+      </nav>
+
+      <div class="player-layout">
+
+        <!-- العمود الأيمن: تصفح حسب الداعية -->
+        <aside class="player-sidebar-left">
+
+        </aside>
+
+        <!-- الوسط: فيديو الدرس والتفاصيل والملاحظات -->
+        <main class="player-main-content">
+          <!-- ترويسة الدرس -->
+          <div class="player-lesson-header">
+            <span class="lesson-tag-pill" id="playerLessonTag">الدرس 1 من 6</span>
+            <h2 class="player-lesson-title" id="playerLessonTitle">ما هو الانتفاع بالقرآن؟</h2>
+            <div class="player-scholar-author">
+              <i class="fa-solid fa-user"></i> <span id="playerScholarName">أحمد السيد</span>
+            </div>
+          </div>
+
+          <!-- مشغل الفيديو -->
+          <div class="player-video-container">
+            <iframe id="videoIframe" src="" title="شاشة الدرس"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+
+          <!-- شريط الإجراءات أسفل الفيديو -->
+          <div class="player-actions-bar">
+            <button class="btn-action-outline" id="btnSaveBookmark" onclick="toggleSaveLesson()">
+              <i class="fa-regular fa-bookmark" id="bookmarkIcon"></i> <span id="bookmarkText">حفظ الدرس</span>
+            </button>
+            <button class="btn-action-complete" id="toggleCompleteBtn" onclick="toggleCurrentLessonCompletion()">
+              <i class="fa-regular fa-square" id="checkLessonIcon"></i> <span>تم إكمال الدرس</span>
+            </button>
+          </div>
+
+          <!-- كارت عن هذا الدرس -->
+          <div class="player-card lesson-about-card">
+            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> عن هذا الدرس</h3>
+            <p id="playerLessonDesc">
+              في هذا الدرس نتعرف على المعنى الحقيقي لانتفاع بالقرآن، وأهميته في تغيير حياتنا، وكيف يكون القرآن منهج
+              حياة وليس مجرد تلاوة.
+            </p>
+          </div>
+
+          <!-- كارت ملاحظاتي -->
+          <div class="player-card lesson-notes-card">
+            <div class="notes-header">
+              <h3>ملاحظاتي</h3>
+              <i class="fa-regular fa-pen-to-square edit-icon"></i>
+            </div>
+            <textarea id="playerNotesInput" placeholder="اكتب ملاحظاتك هنا..." oninput="autoSaveNotes()"></textarea>
+          </div>
+
+          <!-- أزرار التنقل السفلي -->
+          <div class="player-navigation-footer">
+            <button class="btn-nav-prev" id="prevLessonBtn">
+              <i class="fa-solid fa-chevron-right"></i> الدرس السابق
+            </button>
+            <button class="btn-nav-next" id="nextLessonBtn">
+              الدرس التالي <i class="fa-solid fa-chevron-left"></i>
+            </button>
+          </div>
+        </main>
+
+        <!-- العمود الأيسر: تقدمك في المسار وقائمة الدروس -->
+        <aside class="player-sidebar-right">
+
+          <!-- كارت تقدمك في المسار -->
+          <div class="sidebar-card player-progress-card">
+            <h3 class="card-title text-center">تقدمك في المسار</h3>
+
+            <div class="circular-progress-container">
+              <div class="circular-progress" id="playerSideProgressCircle">
+                <div class="inner-circle">
+                  <span class="percentage" id="playerSidePercent">0%</span>
+                  <span class="progress-label" id="playerSideLessonsCount">0 من 6 مكتمل</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="encouragement-text">استمر، أنت على الطريق الصحيح ✨</p>
+
+            <button class="btn-show-detail-path" onclick="openCourseDetailFromPlayer()">
+              عرض تفاصيل المسار
+            </button>
+          </div>
+
+          <!-- كارت دروس المسار -->
+          <div class="sidebar-card player-lessons-card">
+            <h3 class="card-title">دروس المسار</h3>
+            <div class="sidebar-lessons-list" id="playerSidebarLessonsList"></div>
+
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="lessons.js"></script>
+</body>
+
+</html>
