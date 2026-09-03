@@ -5,7 +5,9 @@ const jwt = require("jsonwebtoken");
 const validator = require("validator");
 
 const User = require("../models/user.js");
-const transporter = require("../config/mailer");
+// const transporter = require("../config/mailer");
+// بدلاً من: const transporter = require("../config/mailer");
+const { sendEmail } = require("../config/mailer");
 const { authLimiter } = require("../middleware/rateLimiter");
 const { OTP_EXPIRY_MINUTES } = require("../utils/constants");
 
@@ -51,12 +53,11 @@ router.post("/register", authLimiter, async (req, res) => {
     await newUser.save();
 
     try {
-      await transporter.sendMail({
-        from: 'alserajapp078@gmail.com',
-        to: email,
-        subject: "رمز تفعيل حسابك في السراج",
-        text: `رمز التفعيل الخاص بك هو: ${otp} (صالح لمدة ${OTP_EXPIRY_MINUTES} دقائق)`,
-      });
+      await sendEmail({
+    to: email,
+    subject: "رمز تفعيل حسابك في السراج",
+    text: `رمز التفعيل الخاص بك هو: ${otp} (صالح لمدة ${OTP_EXPIRY_MINUTES} دقائق)`,
+  });
     } catch (mailError) {
       // إصلاح: الحساب أُنشئ فعلاً، لا نخفي على المستخدم فشل إرسال البريد
       console.error("فشل إرسال بريد التفعيل:", mailError);
