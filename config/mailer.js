@@ -1,22 +1,22 @@
-const nodemailer = require("nodemailer");
-const dns = require("dns");
+const Brevo = require("@getbrevo/brevo");
 
-// إجبار استخدام IPv4 لمنع مشاكل الشبكة على Render
-dns.setDefaultResultOrder("ipv4first");
+const apiInstance = new Brevo.TransactionalEmailsApi();
+apiInstance.setApiKey(
+  Brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY
+);
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587, // استخدام منفذ 587 بدلاً من 465
-  secure: false, // يجب أن تكون false لـ STARTTLS عند استخدام المنفذ 587
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false, // يمنع حظر الاتصال في بيئة البرودكشن
-  },
-  connectionTimeout: 20000, // زيادة المهلة لـ 20 ثانية
-  greetingTimeout: 20000,
-});
+const sendEmail = async ({ to, subject, text }) => {
+  const sendSmtpEmail = new Brevo.SendSmtpEmail();
+  sendSmtpEmail.sender = {
+    name: "تطبيق السراج",
+    email: process.env.EMAIL_USER, // يجب أن يكون الإيميل المسجل في Brevo
+  };
+  sendSmtpEmail.to = [{ email: to }];
+  sendSmtpEmail.subject = subject;
+  sendSmtpEmail.textContent = text;
 
-module.exports = transporter;
+  return await apiInstance.sendTransacEmail(sendSmtpEmail);
+};
+
+module.exports = { sendEmail };
