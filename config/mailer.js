@@ -1,22 +1,29 @@
 const Brevo = require("@getbrevo/brevo");
 
 const apiInstance = new Brevo.TransactionalEmailsApi();
+
+// ضبط API Key باستخدام الطريقة الحديثة للمكتبة
 apiInstance.setApiKey(
   Brevo.TransactionalEmailsApiApiKeys.apiKey,
   process.env.BREVO_API_KEY
 );
 
 const sendEmail = async ({ to, subject, text }) => {
-  const sendSmtpEmail = new Brevo.SendSmtpEmail();
-  sendSmtpEmail.sender = {
-    name: "تطبيق السراج",
-    email: process.env.EMAIL_USER, // يجب أن يكون الإيميل المسجل في Brevo
-  };
-  sendSmtpEmail.to = [{ email: to }];
-  sendSmtpEmail.subject = subject;
-  sendSmtpEmail.textContent = text;
+  try {
+    const sendSmtpEmail = new Brevo.SendSmtpEmail();
+    sendSmtpEmail.sender = {
+      name: "تطبيق السراج",
+      email: process.env.EMAIL_USER,
+    };
+    sendSmtpEmail.to = [{ email: to }];
+    sendSmtpEmail.subject = subject;
+    sendSmtpEmail.textContent = text;
 
-  return await apiInstance.sendTransacEmail(sendSmtpEmail);
+    return await apiInstance.sendTransacEmail(sendSmtpEmail);
+  } catch (error) {
+    console.error("خطأ في إرسال البريد عبر Brevo:", error);
+    throw error;
+  }
 };
 
 module.exports = { sendEmail };
