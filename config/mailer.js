@@ -21,7 +21,7 @@ const sendEmail = async ({ to, subject, text }) => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Failed to send email");
+      throw new Error(data.message || "فشل إرسال البريد عبر Brevo API");
     }
 
     return data;
