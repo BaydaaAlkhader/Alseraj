@@ -52,7 +52,7 @@ router.post("/register", authLimiter, async (req, res) => {
 
     try {
       await transporter.sendMail({
-        from: '"تطبيق السراج" <no-reply@alseraj.com>',
+        from: 'alserajapp078@gmail.com',
         to: email,
         subject: "رمز تفعيل حسابك في السراج",
         text: `رمز التفعيل الخاص بك هو: ${otp} (صالح لمدة ${OTP_EXPIRY_MINUTES} دقائق)`,
