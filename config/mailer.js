@@ -1,13 +1,15 @@
-const { TransactionalEmailsApi, SendSmtpEmail } = require("@getbrevo/brevo");
+const Brevo = require("@getbrevo/brevo");
 
-const apiInstance = new TransactionalEmailsApi();
-
-// ضبط المفتاح بواسطة الخاصية المباشرة في الكلاس
-apiInstance.setApiKey(0, process.env.BREVO_API_KEY);
+// إنشاء كائن الحساب والربط بـ API Key
+const apiInstance = new Brevo.TransactionalEmailsApi();
+apiInstance.setApiKey(
+  Brevo.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY
+);
 
 const sendEmail = async ({ to, subject, text }) => {
   try {
-    const sendSmtpEmail = new SendSmtpEmail();
+    const sendSmtpEmail = new Brevo.SendSmtpEmail();
     sendSmtpEmail.sender = {
       name: "تطبيق السراج",
       email: process.env.EMAIL_USER,
