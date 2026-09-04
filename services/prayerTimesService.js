@@ -11,7 +11,6 @@ async function fetchPrayerTimesFromAPI(latitude, longitude) {
   const timings = data.data.timings;
   const timezone = data.data.meta.timezone;
 
-  // دالة لتنظيف النص واستخراج الوقت HH:MM فقط دون أي زيادات نصية
   const cleanTime = (t) => (t ? t.split(" ")[0] : "");
 
   return {
