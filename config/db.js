@@ -12,7 +12,7 @@ async function connectDB() {
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error);
-    // فشل الاتصال بقاعدة البيانات عطل حرج — لا فائدة من تشغيل سيرفر بلا قاعدة بيانات
+    // فشل الاتصال بقاعدة البيانات عطل حرج 
     process.exit(1);
   }
 }
