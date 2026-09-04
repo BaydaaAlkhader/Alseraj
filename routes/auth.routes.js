@@ -5,8 +5,6 @@ const jwt = require("jsonwebtoken");
 const validator = require("validator");
 
 const User = require("../models/user.js");
-// const transporter = require("../config/mailer");
-// بدلاً من: const transporter = require("../config/mailer");
 const { sendEmail } = require("../config/mailer");
 const { authLimiter } = require("../middleware/rateLimiter");
 const { OTP_EXPIRY_MINUTES } = require("../utils/constants");
@@ -26,7 +24,6 @@ router.post("/register", authLimiter, async (req, res) => {
         .json({ error: "صيغة البريد الإلكتروني غير صحيحة" });
     }
 
-    // إصلاح: التحقق من قوة كلمة المرور (لم يكن هناك أي تحقق سابقاً)
     if (password.length < 8) {
       return res
         .status(400)
@@ -46,7 +43,6 @@ router.post("/register", authLimiter, async (req, res) => {
       email,
       password: hashedPassword,
       otpCode: otp,
-      // إصلاح: رمز OTP الآن له صلاحية محدودة بدل أن يبقى صالحاً للأبد
       otpExpires: new Date(Date.now() + OTP_EXPIRY_MINUTES * 60 * 1000),
       isVerified: false,
     });
@@ -59,7 +55,6 @@ router.post("/register", authLimiter, async (req, res) => {
     text: `رمز التفعيل الخاص بك هو: ${otp} (صالح لمدة ${OTP_EXPIRY_MINUTES} دقائق)`,
   });
     } catch (mailError) {
-      // إصلاح: الحساب أُنشئ فعلاً، لا نخفي على المستخدم فشل إرسال البريد
       console.error("فشل إرسال بريد التفعيل:", mailError);
       return res.status(201).json({
         message:
@@ -86,7 +81,7 @@ router.post("/verify-otp", authLimiter, async (req, res) => {
       return res.status(400).json({ error: "رمز التفعيل غير صحيح" });
     }
 
-    // إصلاح: رفض الرموز منتهية الصلاحية
+    //  رفض الرموز منتهية الصلاحية
     if (!userToVerify.otpExpires || userToVerify.otpExpires < new Date()) {
       return res
         .status(400)
@@ -118,7 +113,6 @@ router.post("/login", authLimiter, async (req, res) => {
 
     const userLogin = await User.findOne({ email });
 
-    // إصلاح: رسالة خطأ موحّدة لعدم وجود الحساب/خطأ كلمة المرور،
     // لمنع مهاجم من معرفة أي إيميلات مسجّلة فعلاً في النظام (user enumeration)
     const invalidCredentialsError = {
       error: "البريد الإلكتروني أو كلمة المرور غير صحيحة",
@@ -133,8 +127,7 @@ router.post("/login", authLimiter, async (req, res) => {
       return res.status(400).json(invalidCredentialsError);
     }
 
-    // إصلاح حرج: منع تسجيل الدخول قبل تفعيل الحساب عبر OTP
-    // (كانت هذه الخطوة موجودة بالتسجيل لكن لا أحد يتحقق منها عند الدخول)
+    //  منع تسجيل الدخول قبل تفعيل الحساب عبر OTP
     if (!userLogin.isVerified) {
       return res.status(403).json({
         error: "يرجى تفعيل حسابك عبر رمز OTP المرسل لبريدك أولاً",
