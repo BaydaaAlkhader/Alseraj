@@ -143,7 +143,7 @@ function checkDailyReset() {
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
-  const todayStr = `${year}-${month}-${day}`; // صيغة YYYY-MM-DD المطابقة للسيرفر
+  const todحسابayStr = `${year}-${month}-${day}`; // صيغة YYYY-MM-DD المطابقة للسيرفر
 
   const lastResetKey = getUserStorageKey('last_reset');
   const lastReset = localStorage.getItem(lastResetKey);
@@ -164,26 +164,22 @@ function checkDailyReset() {
   }
 }
 
-// دالة جديدة لإرسال إجمالي تقدم أذكار اليوم الحالي إلى قاعدة البيانات بأمان
+//  لإرسال إجمالي تقدم أذكار اليوم الحالي إلى قاعدة البيانات بأمان
 async function syncAdhkarWithServer() {
   const token = localStorage.getItem('userToken');
   if (!token) return;
 
-  // حساب النسبة المئوية لإنجاز اليوم بالمعادلة الرباعية الصحيحة المعتمدة لديكِ
   const currentOverallPercentage = calculateOverallAdhkarProgress();
 
   try {
-    // الاتصال بالـ API الذي قمنا بتأمينه وتجهيزه في ملف السيرفر app.js
     const response = await fetch('/api/update-adhkar-progress', {
       method: 'POST',
-       // حدّثي كود الـ body داخل دالة syncAdhkarWithServer بملف adhkar.js ليرسل القيم متكاملة
     headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}` // إضافة التوكن للتحقق من هوية المستخدم
       },
-        // حدّثي سطر الـ body فقط داخل دالة syncAdhkarWithServer بملف adhkar.js
     body: JSON.stringify({
-    percent: currentOverallPercentage,       // إرسال النسبة الصافية صراحة (مثلاً: 25)
+    percent: currentOverallPercentage,      
     completedCount: currentOverallPercentage,
     totalCount: 100
    })
@@ -232,7 +228,7 @@ function loadStateFromLocalStorage() {
             }
           });
 
-          // دمج الأذكار الجديدة التي لم تكن موجودة سابقاً
+          // إضافة الأذكار الجديدة التي لم تكن موجودة سابقاً
           const existingIds = new Set(parsedData[cat].map(d => d.id));
           defaultDhikrLibrary[cat].forEach(defaultDhikr => {
             if (!existingIds.has(defaultDhikr.id)) {
@@ -434,7 +430,7 @@ function changeTargetById(id) {
   }
 }
 
-// أ. دالة الزيادة
+//  الزيادة
 function incrementCounter() {
   let list = getActiveList();
   let item = list[activeDhikrIndex];
@@ -450,11 +446,11 @@ function incrementCounter() {
   saveStateToLocalStorage();
   renderCurrentState();
   
-  // 🌟 الربط الفوري: إرسال النسبة المحدثة للسيرفر مع كل ضغطة ذكر
+  //  الربط الفوري عند الزيادة
   syncAdhkarWithServer(); 
 }
 
-// ب. دالة النقصان
+//  النقصان
 function decrementCounter() {
   let list = getActiveList();
   let item = list[activeDhikrIndex];
@@ -470,7 +466,7 @@ function decrementCounter() {
   syncAdhkarWithServer(); 
 }
 
-// ج. دالة تصفير العداد للذكر الحالي
+//  تصفير العداد للذكر الحالي
 function resetCounter() {
   let list = getActiveList();
   let item = list[activeDhikrIndex];
@@ -482,7 +478,7 @@ function resetCounter() {
   saveStateToLocalStorage();
   renderCurrentState();
   
-  // 🌟 الربط الفوري عند إعادة التصفير
+  
   syncAdhkarWithServer(); 
 }
 
