@@ -27,8 +27,6 @@ router.put("/user/last-read", authenticateToken, async (req, res) => {
   try {
     const { page, surah } = req.body;
 
-    // إصلاح: كان الشرط `!page` يرفض الصفحة رقم 0 خطأً لأنها falsy في JS.
-    // الآن نتحقق فعلياً أنها رقم صحيح موجب
     if (typeof page !== "number" || page < 1 || !surah) {
       return res
         .status(400)
@@ -77,7 +75,7 @@ router.post("/favorites/toggle", authenticateToken, async (req, res) => {
     const { surahNumber, surahName, ayahNumber, ayahText, pageNumber } =
       req.body;
 
-    // إصلاح: التأكد أن أرقام السورة/الآية أرقام فعلية قبل الحفظ في قاعدة البيانات
+    
     if (
       typeof surahNumber !== "number" ||
       typeof ayahNumber !== "number" ||
