@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 /* =========================================================
-   دوال تحديث واجهة المستخدم والبيانات (UI & Core Logic)
+    تحديث واجهة المستخدم والبيانات 
    ========================================================= */
 
 function updateUserUI(name) {
@@ -97,12 +97,8 @@ async function loadHomeDashboardData() {
       // --- ب. تحديث نسبة الأذكار الحقيقية القادمة من قاعدة البيانات وسد الثغرة المحلية ---
             // --- ب. تحديث نسبة الأذكار الحقيقية القادمة من قاعدة البيانات (تم تحصين القراءة) ---
       // فحص كافة الاحتمالات والمسميات الممررة من السيرفر لضمان الإمساك بالـ 25%
-            // --- ب. تم الإصلاح والتحصين النهائي: استقبال نسبة الأذكار المزامنة الحقيقية القادمة من قاعدة البيانات ---
-            // --- ب. [تم الإصلاح البرمجي النهائي]: استقبال نسبة الأذكار المزامنة الحقيقية القادمة من قاعدة البيانات ---
-      // التأكد من تفكيك النسبة بكافة الاحتمالات والمسميات الممررة من السيرفر لضمان إمساك الـ 25%
       const athkarPercent = (data.athkar && typeof data.athkar.percent !== 'undefined') ? data.athkar.percent : 0;
 
-      // كل عنصر يُستهدف بمعرّفه الصريح مباشرة — بدون سلاسل fallback بتقفز فوق عناصر موجودة فعلاً
       const azkarText = document.getElementById('azkarText');       // الرقم الكبير بأعلى الكرت
       const azkarBar = document.getElementById('azkarBar');
       const azkarPercent = document.getElementById('azkarPercent'); // السطر الصغير أسفل الكرت
@@ -117,9 +113,9 @@ async function loadHomeDashboardData() {
       const lessonsPercent = data.lessons?.percent || 0;
       const totalCompletedLessons = data.lessons?.completedLessonsCount || 0;
 
-      const lessonsText = document.getElementById('lessonsText');       // الرقم الكبير: عدد الدروس
+      const lessonsText = document.getElementById('lessonsText');       
       const lessonsBar = document.getElementById('lessonsBar');
-      const lessonsPercentEl = document.getElementById('lessonsPercent'); // السطر الصغير: النسبة
+      const lessonsPercentEl = document.getElementById('lessonsPercent'); 
 
       if (lessonsText) lessonsText.textContent = `${totalCompletedLessons} درس`;
       if (lessonsBar) lessonsBar.style.width = `${lessonsPercent}%`;
@@ -252,7 +248,6 @@ monthNames.forEach((monthName, monthIndex) =>
     title.className = 'month-name';
     title.textContent = monthName;
     monthCard.appendChild(title);
-        // استبدلي السطر القديم لـ weekdaysRow بهذه الصياغة المتناسقة تماماً مع الـ CSS
     const weekdaysRow = document.createElement('div');
     weekdaysRow.className = 'weekdays-row';
     weekdaysRow.innerHTML = '<span>س</span><span>ح</span><span>ن</span><span>ث</span><span>ر</span><span>خ</span><span>ج</span>';
