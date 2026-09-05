@@ -322,7 +322,7 @@ body {
   border: 1px solid var(--border-color);
   background: white;
   outline: none;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .search-icon {
