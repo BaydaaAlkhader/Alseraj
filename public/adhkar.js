@@ -143,7 +143,7 @@ function checkDailyReset() {
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
-  const todحسابayStr = `${year}-${month}-${day}`; // صيغة YYYY-MM-DD المطابقة للسيرفر
+  const todayStr = `${year}-${month}-${day}`; // صيغة YYYY-MM-DD المطابقة للسيرفر
 
   const lastResetKey = getUserStorageKey('last_reset');
   const lastReset = localStorage.getItem(lastResetKey);
