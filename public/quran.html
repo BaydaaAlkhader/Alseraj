@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 
 <head>
+  <link rel="icon" href="data:,">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>السراج - القرآن الكريم</title>
@@ -108,7 +109,9 @@
       </main>
 
       <!-- العمود الثاني: قائمة السور/الأجزاء/التفسير (على نفس خط المصحف) -->
-      <aside class="sidebar-right">
+      <aside class="sidebar-right" id="sidebarRight">
+        <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="إغلاق" type="button">&times;</button>
+
         <div class="card" id="surahListSection">
           <h3 class="card-title" id="listTitle">جميع السور</h3>
           <ul class="surah-list" id="surahList"></ul>
