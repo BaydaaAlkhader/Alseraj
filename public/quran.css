@@ -195,7 +195,9 @@ body {
   padding: 8px 35px 8px 15px;
   border-radius: 20px;
   outline: none;
-  width: 220px;
+  width: 100%;
+  max-width: 220px;
+  font-size: 16px;
   font-family: 'Tajawal', sans-serif;
 }
 
@@ -711,6 +713,11 @@ body {
   cursor: pointer;
 }
 
+/* زر إغلاق قائمة السور/الأجزاء — يظهر فقط على الهاتف عندما تصبح القائمة شاشة كاملة */
+.close-sidebar-btn {
+  display: none;
+}
+
 /* ==========================================
    9. الاستجابة للشاشات (Media Queries)
    ========================================== */
@@ -718,6 +725,76 @@ body {
   .app-layout {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  /* إصلاح: بدل ما تظهر قائمة السور/الأجزاء تحت المصحف بالكامل (يحتاج تمرير طويل
+     ولا يلاحظ المستخدم إنها تغيّرت)، تصير شاشة كاملة منبثقة فوق المصحف تُفتح
+     بالضغط على أي تبويب، وتُغلق بزر X أو باختيار عنصر من القائمة */
+  .sidebar-right {
+    display: none;
+  }
+
+  .sidebar-right.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: var(--bg-app, #f8f7f4);
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  .close-sidebar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 50%;
+    background: var(--bg-card, #fff);
+    border: 1px solid var(--border-color, #e5e7eb);
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--text-dark, #333);
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+
+  /* إصلاح: شريط الاستماع كان صف أفقي واحد يحشر 4 أقسام بعرض 90% فقط —
+     يتكسّر على شاشة هاتف. الآن يصير عمودياً وكل عنصر بعرضه الكامل */
+  .audio-player-bar {
+    flex-direction: column;
+    align-items: stretch;
+    width: calc(100% - 24px);
+    max-width: none;
+    bottom: 10px;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .player-info-sec {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .player-info-sec select {
+    max-width: 45%;
+  }
+
+  .player-controls-sec {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .close-player-btn {
+    position: absolute;
+    top: 8px;
+    left: 12px;
   }
 }
 
