@@ -447,7 +447,7 @@ body {
   font-family: 'Amiri Quran', 'Amiri', serif !important;
   color: var(--accent-gold);
   font-size: 0.9em;
-  margin: 0 4px;
+  margin: 0 0px;
 }
 
 .mushaf-footer {
@@ -727,9 +727,7 @@ body {
     gap: 16px;
   }
 
-  /* إصلاح: بدل ما تظهر قائمة السور/الأجزاء تحت المصحف بالكامل (يحتاج تمرير طويل
-     ولا يلاحظ المستخدم إنها تغيّرت)، تصير شاشة كاملة منبثقة فوق المصحف تُفتح
-     بالضغط على أي تبويب، وتُغلق بزر X أو باختيار عنصر من القائمة */
+ 
   .sidebar-right {
     display: none;
   }
@@ -763,8 +761,7 @@ body {
     margin-bottom: 12px;
   }
 
-  /* إصلاح: شريط الاستماع كان صف أفقي واحد يحشر 4 أقسام بعرض 90% فقط —
-     يتكسّر على شاشة هاتف. الآن يصير عمودياً وكل عنصر بعرضه الكامل */
+
   .audio-player-bar {
     flex-direction: column;
     align-items: stretch;
@@ -819,14 +816,38 @@ body {
   }
 
   .mushaf-card {
-    padding: 15px;
+    padding: 15px 8px;
+  }
+
+ 
+  .page-nav-btn {
+    display: none;
+  }
+
+  .mushaf-viewer {
+    margin: 12px 0;
+    gap: 0;
+  }
+
+
+  .quran-text-container {
+    padding: 10px 4px;
+    width: 100%;
   }
 
   .quran-text,
   .quran-text *,
   .ayah-span {
     font-size: 1.35rem !important;
-    line-height: 2.2 !important;
+    line-height: 2.5 !important;
+    text-align: right !important;
+    text-align-last: right !important;
+    word-spacing: normal !important;
+    letter-spacing: 0 !important;
+  }
+
+  .bismillah {
+    font-size: 1.4rem;
   }
 
   .mushaf-footer {
@@ -836,5 +857,14 @@ body {
 
   .footer-actions {
     justify-content: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .quran-text,
+  .quran-text *,
+  .ayah-span {
+    font-size: 1.25rem !important;
+    line-height: 2.3 !important;
   }
 }
