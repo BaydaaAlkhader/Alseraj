@@ -181,4 +181,32 @@ router.post("/reflections", authenticateToken, async (req, res) => {
   }
 });
 
+// حذف تدبر محدد
+router.delete("/reflections", authenticateToken, async (req, res) => {
+  try {
+    const { surahNumber, ayahNumber } = req.body;
+
+    if (typeof surahNumber !== "number" || typeof ayahNumber !== "number") {
+      return res.status(400).json({ error: "بيانات الآية غير صحيحة" });
+    }
+
+    const currentUser = await User.findById(req.user.userId);
+    if (!currentUser)
+      return res.status(404).json({ error: "المستخدم غير موجود" });
+    if (!currentUser.reflections) currentUser.reflections = [];
+
+    currentUser.reflections = currentUser.reflections.filter(
+      (r) => !(r.surahNumber === surahNumber && r.ayahNumber === ayahNumber),
+    );
+
+    await currentUser.save();
+    res
+      .status(200)
+      .json({ success: true, reflections: currentUser.reflections });
+  } catch (error) {
+    console.error("خطأ في حذف التدبر:", error);
+    res.status(500).json({ error: "خطأ في حذف التدبر" });
+  }
+});
+
 module.exports = router;
