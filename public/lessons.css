@@ -241,7 +241,7 @@ html, body {
   border-radius: 10px;
   border: 1px solid #d1d5db;
   background: #ffffff;
-  font-size: 11px;
+  font-size: 16px;
   outline: none;
   font-family: inherit;
 }
@@ -868,7 +868,7 @@ html, body {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 10px;
-  font-size: 11px;
+  font-size: 16px;
   font-family: inherit;
   outline: none;
   resize: vertical;
@@ -1062,5 +1062,32 @@ html, body {
   .player-layout { grid-template-columns: 1fr; }
   .player-sidebar-right { order: 2; }
   .player-main-content { order: 1; }
+}
+
+/* إصلاح: صفحة تصفح الدروس (.lessons-layout) كانت شبكة 3 أعمدة بعرض ثابت
+   (260px 1fr 220px) بدون أي قاعدة استجابة — هذا كان يسبب السكرول الأفقي
+   وقطع المحتوى الظاهر بالصورة */
+@media (max-width: 1150px) {
+  .lessons-layout {
+    grid-template-columns: 220px 1fr;
+  }
+  .lessons-sidebar-right {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .lessons-layout {
+    grid-template-columns: 1fr;
+  }
+  .lessons-sidebar-left {
+    order: 2;
+  }
+  .lessons-main-content {
+    order: 1;
+  }
+  .lessons-sidebar-right {
+    display: none;
+  }
 }
 
