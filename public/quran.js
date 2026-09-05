@@ -708,6 +708,7 @@ function setupTabs() {
   const listTitle = document.getElementById('listTitle');
   const surahListSection = document.getElementById('surahListSection');
   const tafseerSidebarSection = document.getElementById('tafseerSidebarSection');
+  const sidebarRight = document.getElementById('sidebarRight');
 
   tabBtns.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -715,7 +716,6 @@ function setupTabs() {
       tab.classList.add('active');
 
       const tabType = tab.dataset.tab;
-
       if (tabType === 'tafseer' || tab.textContent.includes('تفسير')) {
         currentTab = 'tafseer';
         if (surahListSection) surahListSection.style.display = 'none';
@@ -753,7 +753,29 @@ function setupTabs() {
           renderSurahList();
         }
       }
+
+      // إصلاح: بدل التمرير التلقائي، على الهاتف تصير القائمة شاشة كاملة منبثقة
+      // فوق المصحف (بناءً على ملاحظة المستخدم) — يفتحها الضغط على أي تبويب،
+      // ويغلقها زر X أو اختيار عنصر من القائمة (انظر أسفل الدالة)
+      if (window.innerWidth <= 900) {
+        sidebarRight?.classList.add('mobile-open');
+      }
     });
+  });
+
+  // زر إغلاق الشاشة الكاملة (X)
+  const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+  closeSidebarBtn?.addEventListener('click', () => {
+    sidebarRight?.classList.remove('mobile-open');
+  });
+
+  // إغلاق تلقائي بمجرد اختيار عنصر من القائمة (سورة/جزء/آية مفضلة/تدبر) —
+  // كل القوائم تُعرض بنفس العنصر #surahList، فمستمع واحد يكفي للجميع
+  const surahListEl = document.getElementById('surahList');
+  surahListEl?.addEventListener('click', () => {
+    if (window.innerWidth <= 900) {
+      sidebarRight?.classList.remove('mobile-open');
+    }
   });
 }
 
